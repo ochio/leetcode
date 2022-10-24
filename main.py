@@ -62,23 +62,27 @@ def getTargetTemplate(data):
     return filtered_data[0]['defaultCode']
 
 
-def createSolutionFile(dirname, code):
+def createSolutionFile(dirname, code, fileName="solution.py"):
     if not (os.path.exists(dirname)):
         os.mkdir(dirname)
     try:
-        with open(f'{dirname}/solution.py', "x") as f:
+        with open(f'{dirname}/{fileName}', "x") as f:
             f.write(code)
-            print('\033[32m' + f'{dirname}/solution.py を作成しました。' + '\033[0m')
+            print('\033[32m' + f'{dirname}/{fileName} を作成しました。' + '\033[0m')
     except FileExistsError:
         print('\033[31m' + 'ファイルが既に存在します。' + '\033[0m')
 
 
 def init():
     args = sys.argv
-    title = getQuestionTitle(args[1])
-    data = fetchQuestion(title)
-    python_template = getTargetTemplate(data)
-    createSolutionFile(title, python_template)
+    if args[1] == '-f':
+        title = getQuestionTitle(args[2])
+        createSolutionFile(title, "", fileName="solution.sql")
+    else:
+        title = getQuestionTitle(args[1])
+        data = fetchQuestion(title)
+        python_template = getTargetTemplate(data)
+        createSolutionFile(title, python_template)
 
 
 if __name__ == '__main__':
