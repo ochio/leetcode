@@ -75,14 +75,13 @@ def createSolutionFile(dirname, code, fileName="solution.py"):
 
 def init():
     args = sys.argv
-    if args[1] == '-f':
-        title = getQuestionTitle(args[2])
-        createSolutionFile(title, "", fileName="solution.sql")
-    else:
-        title = getQuestionTitle(args[1])
+    title = getQuestionTitle(args[1])
+    try:
         data = fetchQuestion(title)
         python_template = getTargetTemplate(data)
         createSolutionFile(title, python_template)
+    except:
+        createSolutionFile(title, "", fileName="solution.sql")
 
 
 if __name__ == '__main__':
