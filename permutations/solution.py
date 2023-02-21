@@ -1,5 +1,5 @@
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
+    def permute(self, nums):
 
         if len(nums) == 1:
             return [nums]
@@ -12,3 +12,7 @@ class Solution:
                     res.append(perm)
 
         return res
+
+
+a = Solution()
+print(a.permute([1, 2, 3]))
