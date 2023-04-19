@@ -50,13 +50,15 @@ def getQuestionTitle(url):
 
 def fetchQuestion(title):
     variables = {'titleSlug': title}
-    r = requests.get(GRAPHQL_URL, json={'query': query, 'variables': variables})
+    r = requests.get(GRAPHQL_URL, json={
+                     'query': query, 'variables': variables})
     return r.json()
 
 
 def getTargetTemplate(data):
     template_format = json.loads(data['data']['question']['codeDefinition'])
-    filtered_data = list(filter(lambda lang: lang['value'] == 'python3', template_format))
+    filtered_data = list(
+        filter(lambda lang: lang['value'] == 'python3', template_format))
     if len(filtered_data) != 1:
         raise ValueError("取得したデータが正しくありません")
     return filtered_data[0]['defaultCode']
