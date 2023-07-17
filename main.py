@@ -72,7 +72,7 @@ def createSolutionFile(dirname, code, fileName="solution.py"):
             f.write(code)
             print('\033[32m' + f'{dirname}/{fileName} を作成しました。' + '\033[0m')
     except FileExistsError:
-        print('\033[31m' + 'ファイルが既に存在します。' + '\033[0m')
+        print('\033[31m' + f'{dirname}/{fileName} が既に存在します。' + '\033[0m')
 
 
 def init():
