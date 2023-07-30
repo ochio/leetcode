@@ -1,0 +1,16 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.linting.flake8Enabled": true,
+  // Python ファイル用の設定
+	"[python]": {
+		// VS Code のフォーマッターは無効にしておく
+		"editor.defaultFormatter": "ms-python.black-formatter",
+	},
+
+	// Python 拡張が使用する外部フォーマッターとして black コマンドを指定する
+	// （black コマンドは pip install black でインストールしておく）
+	"python.formatting.provider": "none",
+	"black-formatter.args": ["--line-length", "100"],
+	"editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+}
