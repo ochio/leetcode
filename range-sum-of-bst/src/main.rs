@@ -20,30 +20,30 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn range_sum_bst(root: Option<Rc<RefCell<TreeNode>>>, low: i32, high: i32) -> i32 {
-        let mut sum = 0;
-
-        fn rec(node: &Option<Rc<RefCell<TreeNode>>>, low: i32, high: i32, sum: &mut i32) {
+        
+        fn rec(node: &Option<Rc<RefCell<TreeNode>>>, low: i32, high: i32) -> i32{
+            let mut sum = 0;
             if let Some(n) = node {
                 let n = n.borrow();
                 if low <= n.val && n.val <= high {
-                    *sum += n.val;
+                    sum += n.val;
                 }
 
                 if n.left.is_some() {
-                    rec(&n.left, low, high, sum);
+                    sum += rec(&n.left, low, high);
                 }
 
                 if n.right.is_some() {
-                    rec(&n.right, low, high, sum);
+                    sum += rec(&n.right, low, high);
                 }
+
             }
+            sum
             
 
         }
 
-        rec(&root, low, high, &mut sum);
-
-        sum
+        rec(&root, low, high)
 
     }
 }
