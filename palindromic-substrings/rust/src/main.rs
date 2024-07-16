@@ -1,29 +1,32 @@
 impl Solution {
     pub fn count_substrings(s: String) -> i32 {
-        let mut ans = 0;
         let s = s.as_bytes();
-        let n = s.len() as isize;
-        fn count(mut left: isize, mut right: isize, n: isize, s: &[u8]) -> i32{
-            let mut cnt = 0;
+        let n = s.len();
+        let mut ans = 0;
+        let mut dp = vec![vec![false;n];n];
 
-            while 0 <= left && right < n {
-                if s[left as usize] == s[right as usize] {
-                    cnt += 1;
-                    left -= 1;
-                    right += 1;
-                } else {
-                    break;
+        for i in 0..n {
+            dp[i][i] = true;
+            ans += 1;
+        }
+
+        for i in 0..n-1 {
+            if s[i] == s[i+1] {
+                dp[i][i+1] = true;
+                ans += 1;
+            }
+        }
+
+        for l in 3..=n {
+            for i in 0..n-l+1 {
+                let j = i + l - 1;
+                if s[i] == s[j] && dp[i+1][j-1] {
+                    dp[i][j] = true;
+                    ans += 1;
                 }
             }
-            cnt
         }
 
-
-
-        for i in 0..n as isize {
-            ans += count(i, i, n, &s);
-            ans += count(i, i+1, n, &s);
-        }
         ans
     }
 }
